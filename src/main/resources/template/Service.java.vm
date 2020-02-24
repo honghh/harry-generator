@@ -1,0 +1,17 @@
+package ${package}.${moduleName}.service;
+
+import ${package}.${moduleName}.entity.${className};
+
+import java.util.Map;
+
+/**
+ * ${comments}
+ *
+ * @author ${author}
+ * Date ${datetime}
+ * Copyright (C) ${copyright}
+ */
+public interface ${className}Service {
+
+}
+
