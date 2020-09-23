@@ -41,5 +41,18 @@ public class ${className} implements Serializable {
 @ApiModelProperty(value = "$column.comments")
 	private $column.attrType $column.attrname;
 #end
+	/**
+	 * 开始时间
+	 */
+	@JsonIgnore
+	@TableField(exist = false)
+	private String beginTime;
+
+	/**
+	 * 结束时间
+	 */
+	@JsonIgnore
+	@TableField(exist = false)
+	private String endTime;
 
 }

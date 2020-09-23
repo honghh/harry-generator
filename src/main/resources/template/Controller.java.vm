@@ -23,10 +23,65 @@ import ${package}.${moduleName}.service.${className}Service;
  * Date ${datetime}
  * Copyright (C) ${copyright}
  */
+@Api(tags = "${moduleName}-${pathName} => ${comments}")
 @RestController
 @RequestMapping("${moduleName}/${pathName}")
 public class ${className}Controller {
     @Resource
     private ${className}Service ${classname}Service;
 
+    @ApiOperation("list => 分页获取${comments}列表")
+    @PreAuthorize("@ss.hasPermi('${moduleName}:${pathName}:list')")
+    @GetMapping(value = "/list")
+    public CommonResult<CommonPage<${className}>> list(${className} ${classname},
+                                                  @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
+                                                  @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
+        IPage<${className}> page = ${classname}Service.getPage(${classname}, pageSize, pageNum);
+        return CommonResult.success(CommonPage.restPage(page));
+    }
+
+    /**
+     * 查询${comments}详细
+     */
+    @ApiOperation("{id} => 获取${comments}信息")
+    @PreAuthorize("@ss.hasPermi('${moduleName}:${pathName}:query')")
+    @GetMapping(value = "/{id}")
+    public CommonResult<${className}> getInfo(@PathVariable Long id) {
+        return CommonResult.success(${classname}Service.selectById(id));
+    }
+
+    @ApiOperation("create => 新建${comments}")
+    @PostMapping(value = "/create")
+    public CommonResult<Integer> create(@RequestBody ${className} ${classname}) {
+        int count = ${classname}Service.create(${classname});
+        if (count > 0) {
+            return CommonResult.success(count);
+        }
+        return CommonResult.failed();
+    }
+
+    @ApiOperation("update/{id} => 修改指定${comments}")
+    @PreAuthorize("@ss.hasPermi('${moduleName}:${pathName}:edit')")
+    @SysLog(title = "${comments}数据", businessType = BusinessType.UPDATE)
+    @PutMapping(value = "/update/{id}")
+    public CommonResult<Integer> update(@PathVariable Long id, @RequestBody ${className} ${classname}) {
+        int count = ${classname}Service.update(id, ${classname});
+        if (count > 0) {
+            return CommonResult.success(count);
+        }
+        return CommonResult.failed();
+    }
+
+
+    @ApiOperation("deleteByIds/{ids} => 删除指定${comments}")
+    @PreAuthorize("@ss.hasPermi('${moduleName}:${pathName}:remove')")
+    @SysLog(title = "${comments}类型", businessType = BusinessType.DELETE)
+    @DeleteMapping(value = "/deleteByIds/{ids}")
+    public CommonResult<Integer> deleteByIds(@PathVariable Long[] ids) {
+        int count =${classname}Service.deleteByIds(ids);
+        if (count > 0) {
+            return CommonResult.success(count);
+        }
+        return CommonResult.failed();
+    }
 }

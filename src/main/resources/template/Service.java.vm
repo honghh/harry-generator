@@ -13,5 +13,47 @@ import java.util.Map;
  */
 public interface ${className}Service {
 
+    /**
+     * 分页查询${comments}信息
+     *
+     * @param ${classname}
+     * @param pageSize
+     * @param pageNum
+     * @return
+     */
+    IPage<${className}> getPage(${className} ${classname}, Integer pageSize, Integer pageNum);
+
+    /**
+     * 根据ID查询
+     *
+     * @param id
+     * @return
+     */
+    ${className} selectById(Long id);
+
+    /**
+     * 创建${comments}信息
+     *
+     * @param ${classname}
+     * @return
+     */
+    int create(${className} ${classname});
+
+    /**
+     * 更新${comments}
+     *
+     * @param id
+     * @param ${classname}
+     * @return
+     */
+    int update(Long id, ${className} ${classname});
+
+    /**
+     * 批量删除
+     *
+     * @param ids
+     * @return
+     */
+    int deleteByIds(Long[] ids);
 }
 

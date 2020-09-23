@@ -19,4 +19,43 @@ import ${package}.${moduleName}.service.${className}Service;
 @Service("${classname}Service")
 public class ${className}ServiceImpl extends ServiceImpl<${className}Dao, ${className}> implements ${className}Service {
 
+
+    @Override
+    public IPage<${className}> getPage(${className} ${classname}, Integer pageSize, Integer pageNum) {
+        LambdaQueryWrapper<${className}> wrapper = new LambdaQueryWrapper<>(${classname});
+        if (StrUtil.isNotEmpty(${classname}.getBeginTime())) {
+            wrapper.gt(${className}::getCreateTime, ${classname}.getBeginTime());
+        }
+        if (StrUtil.isNotEmpty(${classname}.getEndTime())) {
+            wrapper.lt(${className}::getCreateTime, ${classname}.getEndTime());
+        }
+        return page(new Page<>(pageNum, pageSize), wrapper);
+    }
+
+
+    @Override
+    public ${className} selectById(Long id) {
+        return this.baseMapper.selectById(id);
+    }
+    
+    @Override
+    public int create(${className} ${classname}) {
+        return this.baseMapper.insert(${classname});
+    }
+
+ 
+    @Override
+    public int update(Long id, ${className} ${classname}) {
+        ${classname}.setId(id);
+        return this.baseMapper.updateById(${classname});
+    }
+
+
+    @Override
+    public int deleteByIds(Long[] ids) {
+        return this.baseMapper.deleteBatchIds(Arrays.asList(ids));
+    }
+
+
+    
 }
